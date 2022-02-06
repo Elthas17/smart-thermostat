@@ -1,0 +1,16 @@
+version: '3'
+# docker-compose build (mode is production by default in dockerfiles)
+# docker-compose build --build-arg mode=staging && docker-compose push
+# docker-compose build --build-arg mode=development
+
+services:
+  smartthermostat:
+    # open api 3.0 application
+    # FLASK_ENV=production triggers use of redis caching and uwsgi metrics export, defaults to development
+    # set by .env file and override by local environment variables
+    build: .
+    image: elthas/home:smart-thermostat
+    container_name: smartthermostat
+    restart: always
+    ports:
+      - 80:80
